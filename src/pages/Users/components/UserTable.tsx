@@ -1,4 +1,9 @@
-import { Table, TableBody, TableContainer } from "@mui/material";
+import {
+  Table,
+  TableBody,
+  TableContainer,
+  TablePagination,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 
 import FilterMenu from "./FilterMenu";
@@ -6,7 +11,6 @@ import "../Users.scss";
 import ActionsMenu from "./ActionsMenu";
 import TableHeader from "./TableHeader";
 import TableRowComponent from "./TableRowComponent";
-import Pagination from "./Pagination";
 import { getAllRecords } from "..";
 
 interface Record {
@@ -41,6 +45,7 @@ function UserTable() {
   const handleFilterMenu = (event: React.MouseEvent<HTMLElement>) => {
     setFilterMenuAnchorEl(event.currentTarget);
   };
+
   const handleActionsMenu = (event: React.MouseEvent<HTMLElement>) => {
     setActionsMenuAnchorEl(event.currentTarget);
   };
@@ -62,9 +67,9 @@ function UserTable() {
   };
 
   const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLSelectElement>
+    event: React.ChangeEvent<{ value: unknown }>
   ) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
+    setRowsPerPage(Number(event.target.value));
     setPage(0);
   };
 
@@ -90,13 +95,18 @@ function UserTable() {
           ))}
         </TableBody>
       </Table>
-      <Pagination
+
+      {/* Normal MUI Table Pagination */}
+      <TablePagination
+        rowsPerPageOptions={[10, 20, 30]}
+        component="div"
         count={records.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage} // Pass the updated handler
+        onRowsPerPageChange={handleChangeRowsPerPage} // Updated with correct event handler
       />
+
       <FilterMenu
         anchorEl={filterMenuAnchorEl}
         onClose={() => setFilterMenuAnchorEl(null)}
