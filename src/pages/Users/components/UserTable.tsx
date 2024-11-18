@@ -64,6 +64,7 @@ function UserTable() {
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
+    console.log(event);
   };
 
   const handleChangeRowsPerPage = (
