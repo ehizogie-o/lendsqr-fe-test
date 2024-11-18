@@ -1,0 +1,106 @@
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+
+$primary-color: #39cdcc;
+$secondary-color: #213f7d;
+$third-color: #545f7d;
+
+$background-color: #fbfbfb;
+$font-family: "Work Sans", sans-serif;
+
+html,
+body {
+  font-family: $font-family;
+  background-color: $background-color;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+[class*="MuiTypography-root"] {
+  font-family: $font-family !important;
+}
+
+nav {
+  .docs {
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18.75px;
+    text-align: left;
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: $secondary-color;
+    padding-right: 8px;
+  }
+
+  .profile-name {
+    font-family: Work Sans;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 18.77px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: $secondary-color;
+    padding-left: 8px;
+    margin-bottom: 0;
+    margin-right: 4px;
+  }
+
+  .list-subheader {
+    font-family: Work Sans;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 14.08px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: $third-color;
+    margin-bottom: 10px;
+  }
+
+  .list-item {
+    font-family: Work Sans;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18.77px;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: $secondary-color;
+  }
+}
+
+.page-heading {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 28.15px;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: $secondary-color;
+  margin: 0;
+}
+
+.divider {
+  border: 1px solid #213f7d;
+  opacity: 0.1;
+}
+
+.version {
+  font-family: Work Sans;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14.08px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: $secondary-color;
+  padding-left: 24px;
+  margin: 32px 0;
+}

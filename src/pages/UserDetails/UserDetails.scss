@@ -1,0 +1,143 @@
+@import "../../assets/styles/global.scss";
+
+.nav-btn-text {
+  font-family: Work Sans;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18.77px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: $third-color;
+  margin-left: 13px;
+}
+
+.btn-text {
+  font-family: Work Sans;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 16.42px;
+  letter-spacing: 0.1em;
+  text-align: center;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  margin: 0;
+}
+
+.user-info-title {
+  font-family: Work Sans;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 18.77px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: $secondary-color;
+  margin-bottom: 30px;
+}
+
+.user-info-key {
+  font-family: Work Sans;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14.08px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: $third-color;
+  margin-bottom: 8px;
+}
+
+.user-info-value {
+  font-family: Work Sans;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 18.77px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: $third-color;
+}
+
+.card-divider {
+  border: 1px solid $secondary-color;
+  opacity: 0.1;
+  margin: 30px 0;
+}
+
+.card-divider-vertical {
+  border: 1px solid $third-color;
+  transform: rotate(-90deg);
+  opacity: 0.2;
+  width: 80px;
+  margin: 0;
+}
+
+.profile-name {
+  font-family: Work Sans;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 25.81px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: $secondary-color;
+  margin: 0 auto 8px;
+}
+
+.profile-subtitle {
+  font-family: Work Sans;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.42px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: $third-color;
+  margin: 0;
+}
+
+.user-tier-txt {
+  font-family: Work Sans;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16.42px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: $third-color;
+  margin: 0 auto 8px;
+}
+
+.account {
+  font-family: Work Sans;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14.08px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: $secondary-color;
+  margin: 0;
+}
+
+.tab-text {
+  font-family: Work Sans;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18.77px;
+  text-align: center;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  margin: 0 auto 10px;
+  cursor: pointer;
+}
+
+.active {
+  color: $primary-color;
+}
+
+.active-selector {
+  border: 2px solid $primary-color;
+  margin: 0;
+}
