@@ -4,12 +4,12 @@
     "target": "ES2020",
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
+    "module": "commonjs", // Set module system to commonjs
     "skipLibCheck": true,
     "typeRoots": ["./node_modules/@types", "./src/types"],
 
     /* Bundler mode */
-    "moduleResolution": "Bundler",
+    "moduleResolution": "node", // Use node resolution for modules
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "moduleDetection": "force",
@@ -22,8 +22,9 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true // Enables compatibility with CommonJS modules
   },
   "include": ["src", "types/**/*"],
-  "typeRoots": ["node_modules/@types", "types"]
+  "typeRoots": ["./node_modules/@types", "@types/faker", "./src/types"]
 }

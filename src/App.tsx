@@ -60,7 +60,7 @@ function App() {
             >
               <Routes>
                 <Route path="/" element={<Users />} />
-                <Route path="/user-details" element={<UserDetails />} />
+                <Route path="/user-details/:userId" element={<UserDetails />} />
               </Routes>
             </Box>
           </Box>

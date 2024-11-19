@@ -4,8 +4,9 @@ import activateUser from "../../../assets/images/activate-user.png";
 import blacklistUser from "../../../assets/images/blacklist-user.png";
 import { useNavigate } from "react-router-dom";
 
-function ActionsMenu({ anchorEl, onClose }: MenuProps) {
+function ActionsMenu({ anchorEl, onClose, recordId }: MenuProps) {
   const navigate = useNavigate();
+
   return (
     <Menu
       anchorEl={anchorEl}
@@ -25,7 +26,7 @@ function ActionsMenu({ anchorEl, onClose }: MenuProps) {
         <p
           className="menu-item"
           onClick={() => {
-            navigate("/user-details");
+            navigate(`/user-details/${recordId}`); // Pass the recordId here
           }}
         >
           View Details
@@ -46,6 +47,7 @@ function ActionsMenu({ anchorEl, onClose }: MenuProps) {
 interface MenuProps {
   anchorEl: HTMLElement | null;
   onClose: () => void;
+  recordId: number | null;
 }
 
 export default ActionsMenu;

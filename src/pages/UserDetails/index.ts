@@ -1,33 +1,13 @@
-export const personalInformation = {
-    fullName: "Grace Effiom",
-    phoneNumber: "07060780922",
-    emailAddress: "grace@gmail.com",
-    bvn: "07060780922",
-    gender: "Female",
-    maritalStatus: "Single",
-    children: "None",
-    typeOfResidence: "Parent’s Apartment",
-};
+import axios from "axios";
 
-export const educationAndEmployment = {
-    levelOfEducation: "B.Sc",
-    employmentStatus: "Employed",
-    sectorOfEmployment: "FinTech",
-    durationOfEmployment: "2 years",
-    officeEmail: "grace@lendsqr.com",
-    monthlyIncome: "₦200,000.00 - ₦400,000.00",
-    loanRepayment: "40,000",
-};
 
-export const socials = {
-    twitter: "@grace_effiom",
-    facebook: "Grace Effiom",
-    instagram: "@grace_effiom",
-};
-
-export const guarantor = {
-    fullName: "Debby Ogana",
-    phoneNumber: "07060780922",
-    emailAddress: "debby@gmail.com",
-    relationship: "Sister",
-};
+export async function fetchUser(id: number) {
+    try {
+        const response = await axios.get(`http://localhost:3000/api/users?id=${id}`);
+        const data = response.data; // Extract data from response
+        console.log(data); // Log data for debugging
+        return data;
+    } catch (error) {
+        console.error("Error fetching users:", error);
+    }
+}

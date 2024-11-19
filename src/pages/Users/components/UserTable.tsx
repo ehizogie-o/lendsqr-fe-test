@@ -11,14 +11,17 @@ import "../Users.scss";
 import ActionsMenu from "./ActionsMenu";
 import TableHeader from "./TableHeader";
 import TableRowComponent from "./TableRowComponent";
-import { getAllRecords } from "..";
+import { fetchUsers } from "..";
 
+interface PersonalInfo {
+  emailAddress: string;
+  phoneNumber: string;
+}
 interface Record {
   id: number;
   organization: string;
   username: string;
-  email: string;
-  phone: string;
+  personalInfo: PersonalInfo;
   dateJoined: string;
   status: string;
 }
@@ -41,19 +44,25 @@ function UserTable() {
     useState<HTMLElement | null>(null);
   const [actionsMenuAnchorEl, setActionsMenuAnchorEl] =
     useState<HTMLElement | null>(null);
+  const [recordId, setRecordId] = useState<number | null>(null); // Track selected record ID
 
   const handleFilterMenu = (event: React.MouseEvent<HTMLElement>) => {
     setFilterMenuAnchorEl(event.currentTarget);
   };
 
-  const handleActionsMenu = (event: React.MouseEvent<HTMLElement>) => {
+  const handleActionsMenu = (
+    event: React.MouseEvent<HTMLElement>,
+    id: number
+  ) => {
     setActionsMenuAnchorEl(event.currentTarget);
+    setRecordId(id); // Set the selected recordId
   };
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await getAllRecords();
+        const response = await fetchUsers();
+        console.log(response);
         setRecords(response);
       } catch (error) {
         console.error(error);
@@ -91,7 +100,9 @@ function UserTable() {
             <TableRowComponent
               key={record.id}
               record={record}
-              onActionsMenuClick={handleActionsMenu}
+              onActionsMenuClick={(event) =>
+                handleActionsMenu(event, record.id)
+              } // Pass record.id to handleActionsMenu
             />
           ))}
         </TableBody>
@@ -105,7 +116,7 @@ function UserTable() {
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage} // Updated with correct event handler
+        onRowsPerPageChange={handleChangeRowsPerPage}
       />
 
       <FilterMenu
@@ -115,6 +126,7 @@ function UserTable() {
       <ActionsMenu
         anchorEl={actionsMenuAnchorEl}
         onClose={() => setActionsMenuAnchorEl(null)}
+        recordId={recordId}
       />
     </TableContainer>
   );
