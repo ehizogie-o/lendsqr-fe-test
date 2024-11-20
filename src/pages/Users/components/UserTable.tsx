@@ -1,22 +1,23 @@
+import { useState, useEffect } from "react";
+import { fetchUsers } from ".."; // Ensure this import path is correct
+import FilterMenu from "./FilterMenu";
+import ActionsMenu from "./ActionsMenu";
+import TableHeader from "./TableHeader";
+import TableRowComponent from "./TableRowComponent";
+import "../Users.scss";
 import {
   Table,
   TableBody,
   TableContainer,
   TablePagination,
 } from "@mui/material";
-import { useEffect, useState } from "react";
 
-import FilterMenu from "./FilterMenu";
-import "../Users.scss";
-import ActionsMenu from "./ActionsMenu";
-import TableHeader from "./TableHeader";
-import TableRowComponent from "./TableRowComponent";
-import { fetchUsers } from "..";
-
+// Define the structure of the user data and personal info
 interface PersonalInfo {
   emailAddress: string;
   phoneNumber: string;
 }
+
 interface Record {
   id: number;
   organization: string;
@@ -26,6 +27,7 @@ interface Record {
   status: string;
 }
 
+// Define the headers for the table
 const tableHeaders = [
   "ORGANIZATION",
   "USERNAME",
@@ -46,10 +48,31 @@ function UserTable() {
     useState<HTMLElement | null>(null);
   const [recordId, setRecordId] = useState<number | null>(null); // Track selected record ID
 
+  // State for filters
+  const [filters, setFilters] = useState({
+    organization: "",
+    username: "",
+    email: "",
+    phone: "",
+    status: "",
+  });
+
+  // Open filter menu
   const handleFilterMenu = (event: React.MouseEvent<HTMLElement>) => {
     setFilterMenuAnchorEl(event.currentTarget);
   };
 
+  const handleResetFilters = () => {
+    setFilters({
+      organization: "",
+      username: "",
+      email: "",
+      phone: "",
+      status: "",
+    });
+  };
+
+  // Open actions menu
   const handleActionsMenu = (
     event: React.MouseEvent<HTMLElement>,
     id: number
@@ -58,24 +81,60 @@ function UserTable() {
     setRecordId(id); // Set the selected recordId
   };
 
+  // Handle change in the filter form (e.g., text fields)
+  const handleFilterChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+      | React.ChangeEvent<{ value: unknown }>,
+    field: keyof typeof filters
+  ) => {
+    // Type guard to check if the event is of type ChangeEvent<{ value: unknown }>
+    if ((e as React.ChangeEvent<{ value: unknown }>).target) {
+      const target = e as React.ChangeEvent<{ value: unknown }>;
+      setFilters((prevFilters) => ({
+        ...prevFilters,
+        [field]: target.target.value,
+      }));
+    } else {
+      // Handle when the event is of type ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+      const target = e.target as HTMLInputElement | HTMLTextAreaElement;
+      setFilters((prevFilters) => ({
+        ...prevFilters,
+        [field]: target.value,
+      }));
+    }
+  };
+
+  // Handle filter application (e.g., when the Filter button is clicked)
+  const handleFilter = async () => {
+    try {
+      // Fetch the filtered data with the filters
+      const filteredData = await fetchUsers(filters);
+      setRecords(filteredData); // Update the table with the filtered records
+    } catch (error) {
+      console.error("Error fetching filtered users:", error);
+    }
+  };
+
+  // Fetch data on component load or when filters change
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetchUsers();
-        console.log(response);
-        setRecords(response);
+        const formattedData = await fetchUsers(filters);
+        setRecords(formattedData);
       } catch (error) {
         console.error(error);
       }
     }
     fetchData();
-  }, []);
+  }, [filters]); // Depend on filters
 
+  // Handle page changes for pagination
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
-    console.log(event);
   };
 
+  // Handle changes in rows per page
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<{ value: unknown }>
   ) => {
@@ -83,6 +142,7 @@ function UserTable() {
     setPage(0);
   };
 
+  // Slice records for pagination
   const displayedRecords = records.slice(
     page * rowsPerPage,
     page * rowsPerPage + rowsPerPage
@@ -102,7 +162,7 @@ function UserTable() {
               record={record}
               onActionsMenuClick={(event) =>
                 handleActionsMenu(event, record.id)
-              } // Pass record.id to handleActionsMenu
+              }
             />
           ))}
         </TableBody>
@@ -122,6 +182,10 @@ function UserTable() {
       <FilterMenu
         anchorEl={filterMenuAnchorEl}
         onClose={() => setFilterMenuAnchorEl(null)}
+        filters={filters} // Pass filters to FilterMenu
+        onFilterChange={handleFilterChange} // Pass filter change handler
+        onApplyFilter={handleFilter} // Pass filter handler
+        onResetFilters={handleResetFilters} // Pass reset filters handler
       />
       <ActionsMenu
         anchorEl={actionsMenuAnchorEl}

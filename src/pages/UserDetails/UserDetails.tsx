@@ -1,3 +1,4 @@
+// UserDetails.tsx
 import { Box, Paper, CircularProgress } from "@mui/material";
 import NavBtn from "../../components/NavBtn";
 import PageHeading from "../../components/PageHeading";
@@ -8,10 +9,13 @@ import GeneralInfo from "./components/GeneralInfo";
 import UserProfileCard from "./components/UserProfileCard";
 import UserTabs from "./components/UserTabs";
 import { fetchUser } from "./index"; // Your API call to fetch user details
+import { UserProfile } from "../../types/user.types";
+
+// Assuming UserProfile type is defined somewhere
 
 function UserDetails() {
   const { userId } = useParams<{ userId: string }>(); // Get the userId from URL params
-  const [userDetails, setUserDetails] = useState<any>(null);
+  const [userDetails, setUserDetails] = useState<UserProfile | null>(null); // Specify UserProfile[] | null here
   const [loading, setLoading] = useState<boolean>(true);
   const [currentTab, setCurrentTab] = useState<number>(0);
 
@@ -21,7 +25,7 @@ function UserDetails() {
       try {
         const response = await fetchUser(Number(userId)); // Fetch the user details
         console.log(response);
-        setUserDetails(response);
+        setUserDetails(response); // Wrap the response in an array if it's a single user
       } catch (error) {
         console.error(error);
       } finally {
@@ -64,7 +68,7 @@ function UserDetails() {
         }}
       >
         {/* Display user details or loading state */}
-        {loading ? (
+        {loading || !userDetails ? (
           <Box
             display="flex"
             justifyContent="center"
@@ -88,7 +92,7 @@ function UserDetails() {
           border: "1px solid #213F7D0F",
         }}
       >
-        {currentTab === 0 ? (
+        {currentTab === 0 && userDetails ? (
           <GeneralInfo userDetails={userDetails} />
         ) : (
           <Box></Box>
